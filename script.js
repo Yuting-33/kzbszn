@@ -1,4 +1,4 @@
-// script.js - 添加滚动位置保存功能
+// script.js - 修复版本
 
 // 轮播功能
 let currentSlide = 0;
@@ -65,8 +65,28 @@ const videoData = [
 let currentVideoIndex = 0;
 
 // 选择视频函数
-// 优化视频数据加载和显示
 function selectVideo(index) {
+
+    console.log(`选择视频: ${index}`);
+    currentVideoIndex = index;
+    
+    // 调试：检查DOM元素是否存在
+    const playlistItems = document.querySelectorAll('.playlist-item');
+    console.log(`找到播放列表项: ${playlistItems.length}`);
+    
+    // 更新活动状态
+    playlistItems.forEach((item, i) => {
+        if (i === index) {
+            item.classList.add('active');
+            console.log(`激活项目: ${i}`);
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+
+
+
     currentVideoIndex = index;
     
     // 更新活动状态
@@ -78,27 +98,9 @@ function selectVideo(index) {
         }
     });
     
-    // 确保视频信息正确显示
+    // 加载视频
     const video = videoData[index];
     if (video) {
-        // 更新播放列表项的文字内容
-        const playlistItems = document.querySelectorAll('.playlist-item');
-        playlistItems.forEach((item, i) => {
-            const itemVideo = videoData[i];
-            if (itemVideo) {
-                const titleElement = item.querySelector('.item-info h4');
-                const descElement = item.querySelector('.item-info p');
-                
-                if (titleElement) {
-                    titleElement.textContent = itemVideo.title;
-                }
-                if (descElement) {
-                    descElement.textContent = itemVideo.description;
-                }
-            }
-        });
-        
-        // 加载视频
         const videoWrapper = document.querySelector('.video-wrapper');
         if (videoWrapper) {
             videoWrapper.innerHTML = '';
@@ -128,31 +130,6 @@ function selectVideo(index) {
         block: 'center' 
     });
 }
-
-// 初始化播放列表文字内容
-function initializePlaylistText() {
-    const playlistItems = document.querySelectorAll('.playlist-item');
-    playlistItems.forEach((item, index) => {
-        const video = videoData[index];
-        if (video) {
-            const titleElement = item.querySelector('.item-info h4');
-            const descElement = item.querySelector('.item-info p');
-            
-            if (titleElement) {
-                titleElement.textContent = video.title;
-            }
-            if (descElement) {
-                descElement.textContent = video.description;
-            }
-        }
-    });
-}
-
-// 在页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    initializePlaylistText();
-    selectVideo(0);
-});
 
 // 从嵌入代码中提取BVID
 function getBvidFromEmbedCode(embedCode) {
@@ -192,23 +169,34 @@ function initializeApp() {
     selectVideo(0);
 }
 
+// 确保DOM完全加载后执行
+function waitForDOM() {
+    if (document.querySelector('.playlist-items')) {
+        initializeApp();
+    } else {
+        setTimeout(waitForDOM, 100);
+    }
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     console.log('页面加载完成，开始初始化...');
     
     // 初始化轮播
-    showSlide(0);
-    setInterval(autoSlide, 5000);
+    if (slides.length > 0) {
+        showSlide(0);
+        setInterval(autoSlide, 5000);
+    }
     
-    // 初始化视频
-    initializeApp();
+    // 等待DOM完全加载
+    waitForDOM();
     
     // 导航栏滚动效果
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
+        if (navbar && window.scrollY > 100) {
             navbar.style.background = 'linear-gradient(135deg, #8b0000 0%, #c41e3a 100%)';
-        } else {
+        } else if (navbar) {
             navbar.style.background = 'linear-gradient(135deg, #c41e3a 0%, #8b0000 100%)';
         }
         
@@ -241,10 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.hero-card').forEach(card => {
         card.addEventListener('click', function() {
             const info = this.querySelector('.hero-info p');
-            if (info.style.maxHeight) {
-                info.style.maxHeight = null;
-            } else {
-                info.style.maxHeight = info.scrollHeight + "px";
+            if (info) {
+                if (info.style.maxHeight) {
+                    info.style.maxHeight = null;
+                } else {
+                    info.style.maxHeight = info.scrollHeight + "px";
+                }
             }
         });
     });
@@ -296,6 +286,7 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
+// 移动端菜单功能
 document.addEventListener('DOMContentLoaded', function() {
     // 创建移动端菜单按钮
     const menuToggle = document.createElement('button');
@@ -332,3 +323,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
