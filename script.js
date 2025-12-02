@@ -65,6 +65,7 @@ const videoData = [
 let currentVideoIndex = 0;
 
 // 选择视频函数
+// 优化视频数据加载和显示
 function selectVideo(index) {
     currentVideoIndex = index;
     
@@ -77,29 +78,48 @@ function selectVideo(index) {
         }
     });
     
-    // 加载视频
-    const videoWrapper = document.querySelector('.video-wrapper');
-    if (videoWrapper) {
-        videoWrapper.innerHTML = '';
+    // 确保视频信息正确显示
+    const video = videoData[index];
+    if (video) {
+        // 更新播放列表项的文字内容
+        const playlistItems = document.querySelectorAll('.playlist-item');
+        playlistItems.forEach((item, i) => {
+            const itemVideo = videoData[i];
+            if (itemVideo) {
+                const titleElement = item.querySelector('.item-info h4');
+                const descElement = item.querySelector('.item-info p');
+                
+                if (titleElement) {
+                    titleElement.textContent = itemVideo.title;
+                }
+                if (descElement) {
+                    descElement.textContent = itemVideo.description;
+                }
+            }
+        });
         
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://player.bilibili.com/player.html?bvid=${getBvidFromEmbedCode(videoData[index].embedCode)}&high_quality=1&danmaku=0&autoplay=false`;
-        iframe.scrolling = 'no';
-        iframe.border = '0';
-        iframe.frameBorder = 'no';
-        iframe.framespacing = '0';
-        iframe.allowFullscreen = 'true';
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.style.position = 'absolute';
-        iframe.style.top = '0';
-        iframe.style.left = '0';
-        iframe.style.border = 'none';
-        iframe.style.borderRadius = '20px';
-        
-        videoWrapper.appendChild(iframe);
-        
-        console.log(`加载视频: ${videoData[index].title}`);
+        // 加载视频
+        const videoWrapper = document.querySelector('.video-wrapper');
+        if (videoWrapper) {
+            videoWrapper.innerHTML = '';
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://player.bilibili.com/player.html?bvid=${getBvidFromEmbedCode(video.embedCode)}&high_quality=1&danmaku=0&autoplay=false`;
+            iframe.scrolling = 'no';
+            iframe.border = '0';
+            iframe.frameBorder = 'no';
+            iframe.framespacing = '0';
+            iframe.allowFullscreen = 'true';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '15px';
+            
+            videoWrapper.appendChild(iframe);
+        }
     }
     
     // 滚动到视频区域
@@ -108,6 +128,31 @@ function selectVideo(index) {
         block: 'center' 
     });
 }
+
+// 初始化播放列表文字内容
+function initializePlaylistText() {
+    const playlistItems = document.querySelectorAll('.playlist-item');
+    playlistItems.forEach((item, index) => {
+        const video = videoData[index];
+        if (video) {
+            const titleElement = item.querySelector('.item-info h4');
+            const descElement = item.querySelector('.item-info p');
+            
+            if (titleElement) {
+                titleElement.textContent = video.title;
+            }
+            if (descElement) {
+                descElement.textContent = video.description;
+            }
+        }
+    });
+}
+
+// 在页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    initializePlaylistText();
+    selectVideo(0);
+});
 
 // 从嵌入代码中提取BVID
 function getBvidFromEmbedCode(embedCode) {
