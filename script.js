@@ -250,3 +250,40 @@ document.addEventListener('visibilitychange', function() {
         saveScrollPosition();
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 创建移动端菜单按钮
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '☰';
+    menuToggle.setAttribute('aria-label', '切换菜单');
+    
+    const navContainer = document.querySelector('.nav-container');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navContainer && navMenu) {
+        navContainer.appendChild(menuToggle);
+        
+        // 菜单切换功能
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            menuToggle.innerHTML = navMenu.classList.contains('active') ? '✕' : '☰';
+        });
+        
+        // 点击导航链接后关闭菜单
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '☰';
+            });
+        });
+        
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', function(e) {
+            if (!navContainer.contains(e.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '☰';
+            }
+        });
+    }
+});
