@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄人物详情 - 抗战八十周年纪念</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero-detail-container {
+            max-width: 900px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .hero-detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 30px;
+        }
+        
+        .hero-detail-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero-detail-title {
+            flex: 1;
+        }
+        
+        .hero-detail-title h1 {
+            font-size: 2.2rem;
+            color: #c41e3a;
+            margin-bottom: 15px;
+        }
+        
+        .hero-detail-title .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .hero-detail-title .life-span {
+            font-size: 1rem;
+            color: #888;
+        }
+        
+        .hero-detail-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .hero-timeline {
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.05) 0%, rgba(139, 0, 0, 0.05) 100%);
+            border-radius: 10px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #c41e3a;
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: #c41e3a;
+            margin-bottom: 5px;
+        }
+        
+        .hero-significance {
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.1) 0%, rgba(139, 0, 0, 0.1) 100%);
+            border-left: 4px solid #c41e3a;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+        
+        /* 视频容器样式 */
+        .hero-video-section {
+            margin: 40px 0;
+            padding: 30px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .hero-video-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #c41e3a;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .hero-video-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #c41e3a;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin:30px auto;
+            display: block;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: #000;
+        }
+
+        /* 嵌入视频样式 */
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        .back-link {
+            position: fixed;
+            top: 90px;
+            left: 20px;
+            background: #c41e3a;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #8b0000;
+            transform: translateX(-5px);
+        }
+        
+        .back-link::before {
+            content: "← ";
+        }
+        
+        @media (max-width: 768px) {
+            .hero-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-detail-image {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">抗战八十周年纪念</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link">首页</a></li>
+                <li><a href="index.html#history" class="nav-link">历史事件</a></li>
+                <li><a href="index.html#heroes" class="nav-link">英雄人物</a></li>
+                <li><a href="index.html#spirit" class="nav-link">抗战精神</a></li>
+            </ul>
+        </div>
+    </nav>
+    <a href="index.html#heroes" class="back-link">返回</a>
+
+    <div class="hero-detail-container">
+        <div class="hero-detail-header">
+            <img src="image/杨靖宇.png" alt="杨靖宇" class="hero-detail-image" id="hero-image">
+            <div class="hero-detail-title">
+                <h1 id="hero-name">杨靖宇</h1>
+                <div class="subtitle" id="hero-subtitle">抗日民族英雄、东北抗日联军主要创建者和领导人之一</div>
+                <div class="life-span" id="hero-life-span">1905年2月13日—1940年2月23日</div>
+            </div>
+        </div>
+        
+        <div class="hero-detail-content" id="hero-content">
+            <!-- 内容将通过JavaScript动态加载 -->
+        </div>
+        
+        <!-- 视频部分将通过JavaScript动态添加 -->
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 抗战八十周年纪念网站 | 铭记历史，珍爱和平</p>
+        </div>
+    </footer>
+
+    <script>
+        // 英雄详细数据 - 使用B站嵌入视频
+        const heroData = {
+            yangjingyu: {
+                name: "杨靖宇",
+                subtitle: "抗日民族英雄、东北抗日联军主要创建者和领导人之一",
+                lifeSpan: "1905年2月13日—1940年2月23日",
+                image: "image/杨靖宇.png",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1EY411G781&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                videoTitle: "杨靖宇将军英雄事迹",
+                videoDesc: "东北抗日联军总司令杨靖宇的英勇抗战历程",
+                content: `
+                    <p>杨靖宇（1905年2月13日—1940年2月23日），男，出生于河南省确山县，原名马尚德，字骥生，号润生，汉族，中国共产党优秀党员，无产阶级革命家、军事家、著名抗日民族英雄，鄂豫皖苏区及其红军创始人之一，东北抗日联军主要创建者和领导人之一。</p>
+                    
+                    <div class="hero-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1923年</div>
+                            <div>在河南省立第一甲种工业学校入读期间开始参加革命活动。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1926年</div>
+                            <div>在确山从事农民运动。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1927年</div>
+                            <div>4月，领导确山农民暴动；11月，领导刘店秋收起义。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1929年</div>
+                            <div>被委派赴东北工作。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1932年</div>
+                            <div>创建以磐石红石砬子为中心的游击根据地。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1933年</div>
+                            <div>以南满游击队和海龙游击队为基础，成立东北人民革命军第一军独立师。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1934年</div>
+                            <div>2月，联合17支抗日武装成立东北抗日联合军总指挥部。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937年</div>
+                            <div>卢沟桥事变后，杨靖宇号召全体东北同胞，打倒日本帝国主义，率部长期转战东南满大地，配合了全国的抗日战争。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1939年</div>
+                            <div>在东南满地区秋冬季反"讨伐"作战中，杨靖宇指挥部队化整为零、分散游击。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1940年</div>
+                            <div>2月23日，在吉林省濛江县壮烈殉国，年仅35岁。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-significance">
+                        <p>杨靖宇是伟大的抗日民族英雄、优秀的共产主义战士、杰出的人民军队将领、中国人民的优秀儿子。在中国革命史、中国共产党党史、中国人民解放军军史、中国抗日战争史上占有重要地位。他的名字从抗日战争时期到现在乃至将来始终是一面光辉的旗帜。</p>
+                        <p>2009年，入选"100位为新中国成立作出突出贡献的英雄模范人物"。2014年9月，入选第一批著名抗日英烈名录。</p>
+                    </div>
+                `
+            },
+            zuquan: {
+                name: "左权",
+                subtitle: "中国无产阶级革命家、军事家、八路军高级将领",
+                lifeSpan: "1905年3月15日-1942年5月25日",
+                image: "image/左权.png",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV19f4y1x7mG&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                videoTitle: "左权将军英雄事迹",
+                videoDesc: "八路军副总参谋长左权的英勇抗战历程",
+                content: `
+                    <p>左权（1905年3月15日-1942年5月25日），字孳麟，号叔仁，原名左纪权，湖南醴陵人，黄埔军校一期生。1925年加入中国共产党，是中国工农红军和八路军高级将领，无产阶级革命家、军事家。</p>
+                    
+                    <div class="hero-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1925年</div>
+                            <div>12月赴苏联学习。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1934年</div>
+                            <div>参加长征，参与指挥强渡大渡河、攻打腊子口等战斗。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1936年</div>
+                            <div>担任红一军团代理军团长，率部西征并参与指挥山城堡战役。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937年</div>
+                            <div>抗日战争爆发后，协助指挥八路军开赴华北抗日前线，粉碎日伪军"扫荡"，发展壮大人民武装力量。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1940年</div>
+                            <div>取得百团大战等许多战役、战斗的胜利。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1942年</div>
+                            <div>5月，日军对太行抗日根据地发动大"扫荡"，左权指挥部队掩护中共中央北方局和八路军总部等机关突围转移，不幸牺牲，年仅37岁。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-significance">
+                        <p>牺牲后，延安和太行山根据地为其举行追悼会，并改辽县为左权县。左权一生军事著作40多篇，对学习运用毛泽东军事思想，对国家的独立和民族的解放作出了重要贡献。</p>
+                        <p>2009年，左权被中央宣传部、中央组织部等11个部门评为"100位为新中国成立作出突出贡献的英雄模范人物"。</p>
+                    </div>
+                `
+            },
+            zhaoyiman: {
+                name: "赵一曼",
+                subtitle: "中华民族抗日英雄、革命烈士",
+                lifeSpan: "1905年10月25日—1936年8月2日",
+                image: "image/赵一曼.png",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1wKbKzyEyy&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                videoTitle: "赵一曼烈士英雄事迹",
+                videoDesc: "抗日女英雄赵一曼的英勇抗战历程",
+                content: `
+                    <p>赵一曼（1905年10月25日—1936年8月2日），原名李坤泰，又名李淑宁、李一超，在东北参加抗日斗争时化名赵一曼，四川宜宾人，抗日英雄。</p>
+                    
+                    <div class="hero-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1923年</div>
+                            <div>加入中国社会主义青年团。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1926年</div>
+                            <div>夏，加入中国共产党；11月，入武汉中央军事政治学校学习。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1927年</div>
+                            <div>9月至1928年11月，在苏联莫斯科中山大学留学。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1931年</div>
+                            <div>九·一八事变后，被派往东北地区发动抗日斗争。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1935年</div>
+                            <div>9月，任东北人民革命军第三军第一师第二团政治部主任。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1935年11月</div>
+                            <div>为掩护部队突围，身负重伤，养伤期间被日军发现，战斗中再度负伤，昏迷被俘。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1936年</div>
+                            <div>6月28日，在看护和看守帮助下逃出医院；8月2日，在珠河被敌杀害。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-significance">
+                        <p>赵一曼出生于四川南部山区，从小就具有强烈的反封建思想，曾经以绝食来抗争反对缠足。少年时期她开始接受进步刊物，更加坚定了反对封建制度、进行社会革命的理想。</p>
+                        <p>回国后，在宜昌、南昌和上海等地秘密开展党的工作。先后任满洲总工会秘书、组织部长，中共滨江省珠河县中心县委特派员、铁北区委书记，领导工人进行罢工运动，组织青年农民反日游击队与敌人进行斗争。</p>
+                    </div>
+                `
+            },
+            lin: {
+                name: "李林",
+                subtitle: "抗日战争革命烈士",
+                lifeSpan: "1915/1916-1940",
+                image: "image/李林.png",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1bu411B7Jg&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                videoTitle: "李林烈士英雄事迹",
+                videoDesc: "抗日女英雄李林的英勇抗战历程",
+                content: `
+                    <p>李林（1915/1916-1940），福建省龙溪县（今漳州市龙海区，一说为今漳州市芗城区）人，中共党员。</p>
+                    
+                    <div class="hero-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1929年</div>
+                            <div>回国后，积极参加抗日救亡运动。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1936年</div>
+                            <div>考入北平民国大学；同年加入中国共产党；随即赴太原参加山西牺牲救国同盟会举办的国民师范学校军政训练班，任特委宣传委员兼女子第11连党支部书记。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937年</div>
+                            <div>抗日战争爆发后，李林坚决要求到前方杀敌，被派往大同，任牺盟会大同中心区委宣传部部长，后随晋绥边区工作委员会到雁北抗日前线，宣传和组织工人、农民、学生参加抗日武装。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937年11月</div>
+                            <div>任雁北抗日游击队第8支队支队长兼政治主任。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1938年</div>
+                            <div>春，改任整编后的独立支队骑兵营教导员，率部驰骋雁北、绥南与日伪军作战，屡建战功；7月，牺盟会晋绥边工委成立，调任边委会宣传委员兼管边区地方武装；后当选为晋绥边区第11行政专员公署委员。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1940年</div>
+                            <div>4月，日伪军集中1.2万兵力，对晋绥边区进行"扫荡"；为掩护机关和群众突围，她不顾怀有3个月身孕，率骑兵连勇猛冲杀，将日伪军引开，自己却被围困；26日，在身负重伤后，仍英勇抗击，毙伤日伪军6人；被日伪军包围后，她宁死不屈，将最后一发子弹射向自己，壮烈牺牲，时年24岁。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-significance">
+                        <p>李林幼年侨居印度尼西亚，回国后积极投身抗日救亡运动。她是一位杰出的女性抗日英雄，在晋绥边区抗日斗争中作出了重要贡献。</p>
+                        <p>1940年4月，在掩护机关和群众突围时，李林壮烈牺牲，年仅24岁，怀有3个月身孕。她的英勇事迹永远铭记在人民心中。</p>
+                    </div>
+                `
+            },
+            mabenzhai: {
+                name: "马本斋",
+                subtitle: "抗日民族英雄、烈士",
+                lifeSpan: "1901年—1944年2月7日",
+                image: "image/马本斋.png",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1Be4y1f7XT&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                videoTitle: "马本斋司令英雄事迹",
+                videoDesc: "回民支队司令员马本斋的英勇抗战历程",
+                content: `
+                    <p>马本斋（1901年—1944年2月7日），原名马守清，回族，中国共产党党员，河北沧州献县人。抗日战争时期八路军冀中军区回民支队的创建人，抗日民族英雄。</p>
+                    
+                    <div class="hero-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1931年</div>
+                            <div>九·一八事变后，因不满蒋介石的不抵抗政策，毅然弃官返乡。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937年</div>
+                            <div>全国抗战爆发后，马本斋在家乡组织回民义勇队，奋起抗日。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1938年</div>
+                            <div>率队参加八路军，所部改编为冀中军区回民教导总队，任总队长；10月，马本斋加入中国共产党。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1939年</div>
+                            <div>教导总队改称冀中军区回民支队，任司令员。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937-1944年</div>
+                            <div>马本斋率部经历大小战斗870余次，歼灭日伪军3.6万余人。他率领回民支队驰骋在冀中平原，渤海之滨，冀鲁豫敌后战场，英勇善战，威名远扬。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1944年</div>
+                            <div>2月7日，在山东莘县病逝，年仅42岁。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-significance">
+                        <p>马本斋早年投身奉军当兵，逐级升至团长。他带领部队经历大小战斗870余次，歼灭日伪军3.67万名，建起"敌后抗日堡垒"，沉重打击了日寇的嚣张气焰，毛泽东同志称其为"百战百胜的回民支队"。</p>
+                        <p>为纪念抗日英雄马本斋，河北献县本斋乡本斋村建成纪念馆，并且面向公众开放。在马本斋纪念馆，北院的马本斋纪念馆主馆与南院的马本斋母子烈士陵园遥相呼应。</p>
+                        <p>2009年9月，马本斋被中央宣传部、中央组织部等11个部门评选为"100位为新中国成立作出突出贡献的英雄模范人物"。</p>
+                    </div>
+                `
+            },
+            tonglinge: {
+                name: "佟麟阁",
+                subtitle: "抗日英烈、原国民革命军第二十九军副军长",
+                lifeSpan: "1892年10月29日—1937年7月28日",
+                image: "image/佟麟阁.png",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1Bee4zCErn&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                videoTitle: "佟麟阁将军英雄事迹",
+                videoDesc: "抗日英烈佟麟阁的英勇抗战历程",
+                content: `
+                    <p>佟麟阁（1892年10月29日—1937年7月28日），满族(此处有争议，一说为汉族)，本名佟凌阁，字捷三，出生于河北省高阳县边家务村，抗日英烈，原国民革命军第二十九军副军长，追晋陆军上将。</p>
+                    
+                    <div class="hero-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1908年</div>
+                            <div>16岁时，到高阳县县公署做缮写。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1912年</div>
+                            <div>投笔从戎，追随冯玉祥南征北战，剿匪平藩，屡立战功，先后任连长、营长、团长、师长等职。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1930年</div>
+                            <div>中原大战冯玉祥讨蒋失败后，佟麟阁解甲归田，总结以往斗争的经验教训，寻求救国之路。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1932年</div>
+                            <div>应第二十九军军长宋哲元之邀出山参加抗日斗争。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1933年</div>
+                            <div>任张家口警备司令，支持二十九军在喜峰口抗击日军；同年5月，任察哈尔民众抗日同盟军第一军军长兼代察省主席，领导对日作战，保卫察省，收复失地。</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1937年</div>
+                            <div>"七七事变"爆发时，出任第二十九军代军长，率部坚守北平南苑，在与日军鏖战时，于1937年7月28日14:30殉国。</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-significance">
+                        <p>佟麟阁自幼习读经史，立志救国。同盟军被迫撤销后再次隐退，随着抗日形势发展，再次出山任第二十九军中将副军长兼军事训练团团长。</p>
+                        <p>1937年"七七事变"爆发时，佟麟阁率部坚守北平南苑，在与日军鏖战时壮烈殉国，是抗日战争中牺牲的第一位国民党高级将领。</p>
+                    </div>
+                `
+            }
+        };
+
+        // 从URL获取英雄ID并显示相应内容
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const heroId = params.get('id');
+            
+            // 获取英雄数据，默认为杨靖宇
+            const hero = heroData[heroId] || heroData.yangjingyu;
+            
+            // 更新页面内容
+            document.getElementById('hero-name').textContent = hero.name;
+            document.getElementById('hero-subtitle').textContent = hero.subtitle;
+            document.getElementById('hero-life-span').textContent = hero.lifeSpan;
+            document.getElementById('hero-image').src = hero.image;
+            document.getElementById('hero-content').innerHTML = hero.content;
+            
+            // 添加视频部分
+            addVideoSection(hero);
+        });
+
+        // 添加视频部分
+        function addVideoSection(hero) {
+            const videoSection = document.createElement('div');
+            videoSection.className = 'hero-video-section';
+            videoSection.innerHTML = `
+                <h2 class="hero-video-title">${hero.name}英雄事迹影像</h2>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <!-- 视频内容将通过JavaScript动态插入 -->
+                    </div>
+                </div>
+            `;
+            
+            // 将视频部分添加到容器末尾
+            const container = document.querySelector('.hero-detail-container');
+            container.appendChild(videoSection);
+            
+            // 根据视频类型渲染内容
+            const videoWrapper = videoSection.querySelector('.video-wrapper');
+            if (hero.video === "embed") {
+                // 使用嵌入代码
+                videoWrapper.innerHTML = hero.embedCode;
+            } else {
+                // 原有的video标签逻辑（保留兼容性）
+                videoWrapper.innerHTML = `
+                    <video id="hero-video" 
+                           poster="${hero.image}" 
+                           preload="metadata"
+                           controls>
+                        <source src="${hero.video}" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                `;
+            }
+        }
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'linear-gradient(135deg, #8b0000 0%, #c41e3a 100%)';
+            } else {
+                navbar.style.background = 'linear-gradient(135deg, #c41e3a 0%, #8b0000 100%)';
+            }
+        });
+    </script>
+</body>
+</html>
