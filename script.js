@@ -324,3 +324,114 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+let litCount = 0;
+
+function lightCandle(candleElement) {
+    const wrapper = candleElement.closest('.candle-wrapper');
+    
+    if (!candleElement.classList.contains('lit')) {
+        candleElement.classList.add('lit');
+        litCount++;
+        
+        // 添加点亮动画
+        createLightEffect(wrapper);
+        
+        // 播放音效
+        playLightSound();
+        
+        // 更新统计
+        updateStats();
+        
+        // 保存状态
+        saveCandleState(wrapper.dataset.candleId, true);
+    } else {
+        candleElement.classList.remove('lit');
+        litCount--;
+        updateStats();
+        saveCandleState(wrapper.dataset.candleId, false);
+    }
+}
+
+function createLightEffect(wrapper) {
+    const light = document.createElement('div');
+    light.className = 'light-effect';
+    light.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255,152,0,0.4) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: lightExpand 1s ease-out forwards;
+    `;
+    
+    wrapper.appendChild(light);
+    
+    setTimeout(() => light.remove(), 1000);
+}
+
+function playLightSound() {
+    // 创建简单的音效
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 600;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+}
+
+function updateStats() {
+    document.getElementById('candle-count').textContent = litCount;
+}
+
+function saveCandleState(candleId, isLit) {
+    const states = JSON.parse(localStorage.getItem('candleStates') || '{}');
+    states[candleId] = isLit;
+    localStorage.setItem('candleStates', JSON.stringify(states));
+}
+
+function loadCandleStates() {
+    const states = JSON.parse(localStorage.getItem('candleStates') || '{}');
+    Object.keys(states).forEach(candleId => {
+        const wrapper = document.querySelector(`[data-candle-id="${candleId}"]`);
+        if (wrapper && states[candleId]) {
+            const candle = wrapper.querySelector('.candle');
+            candle.classList.add('lit');
+            litCount++;
+        }
+    });
+    updateStats();
+}
+
+// 添加光效动画
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes lightExpand {
+        0% { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(0);
+        }
+        100% { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) scale(3);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// 页面加载时恢复状态
+document.addEventListener('DOMContentLoaded', function() {
+    loadCandleStates();
+});
