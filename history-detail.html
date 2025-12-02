@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史事件详情 - 抗战八十周年纪念</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-container {
+            max-width: 900px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .detail-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .detail-title {
+            font-size: 2.2rem;
+            color: #c41e3a;
+            margin-bottom: 15px;
+        }
+        
+        .detail-date {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .detail-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        /* 视频容器样式 - 调整为更大尺寸 */
+        .video-container {
+             position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin:30px auto;
+             display: block;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px; /* 增加圆角 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* 增强阴影 */
+            background: #000;
+        }
+
+        /* 嵌入视频样式 */
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        .back-link {
+           position: fixed;
+    top: 90px;
+    left: 20px;
+    background: #c41e3a;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 999;
+    transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #8b0000;
+            transform: translateX(-5px);
+        }
+        
+        .back-link::before {
+            content: "← ";
+        }
+        
+        .event-significance {
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.05) 0%, rgba(139, 0, 0, 0.05) 100%);
+            border-left: 4px solid #c41e3a;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+        
+        .key-facts {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .key-facts h3 {
+            color: #c41e3a;
+            margin-bottom: 15px;
+        }
+        
+        .key-facts ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-facts li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .key-facts li:before {
+            content: "•";
+            color: #c41e3a;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 5px;
+        }
+        
+        .timeline-section {
+            margin: 30px 0;
+        }
+        
+        .timeline-section h3 {
+            color: #c41e3a;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .timeline-date {
+            flex: 0 0 120px;
+            font-weight: bold;
+            color: #c41e3a;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .timeline-content:before {
+            content: "";
+            position: absolute;
+            left: -10px;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #c41e3a;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-date {
+                margin-bottom: 5px;
+            }
+            
+            .timeline-content {
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">抗战八十周年纪念</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link">首页</a></li>
+                <li><a href="index.html#history" class="nav-link">历史事件</a></li>
+                <li><a href="index.html#heroes" class="nav-link">英雄人物</a></li>
+                <li><a href="index.html#spirit" class="nav-link">抗战精神</a></li>
+            </ul>
+        </div>
+    </nav>
+ <a href="index.html#history" class="back-link">返回</a>
+
+    <div class="detail-container">
+        
+        <div class="detail-header">
+            
+            <h1 class="detail-title" id="event-title">七七事变（卢沟桥事变）</h1>
+            <div class="detail-date" id="event-date">1937年7月7日</div>
+        </div>
+        
+        <div class="detail-content" id="event-content">
+            <!-- 内容将通过JavaScript动态加载 -->
+        </div>
+        
+       
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 抗战八十周年纪念网站 | 铭记历史，珍爱和平</p>
+        </div>
+    </footer>
+
+    <script>
+        // 事件详细数据
+        const eventData = {
+            qiqi: {
+                title: "七七事变（卢沟桥事变）",
+                date: "1937年7月7日",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1sk36zKEqM&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                poster: "image/qiqi事变.png",
+                content: `
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <!-- 视频内容将通过JavaScript动态插入 -->
+                        </div>
+                    </div>
+                    
+                    <p>1937年7月7日夜，日军在北平西南的卢沟桥附近进行军事演习，并诡称一名士兵失踪，要求进入宛平城搜查。</p>
+                    
+                    <p>在遭到中国守军严词拒绝后，日军悍然炮轰宛平城和卢沟桥。中国驻军国民革命军第二十九军奋起抵抗，战斗持续多日。</p>
+                    
+                    <div class="key-facts">
+                        <h3>关键事实</h3>
+                        <ul>
+                            <li>时间：1937年7月7日夜</li>
+                            <li>地点：北平（今北京）西南卢沟桥附近</li>
+                            <li>中国守军：国民革命军第二十九军</li>
+                            <li>指挥官：佟麟阁、赵登禹等</li>
+                            <li>结果：中国军队被迫撤退，但标志着全面抗战开始</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-section">
+                        <h3>事件经过</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7月7日晚</div>
+                            <div class="timeline-content">日军在卢沟桥附近进行军事演习，谎称士兵失踪</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7月8日凌晨</div>
+                            <div class="timeline-content">日军炮轰宛平城，中国守军奋起抵抗</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7月8日-11日</div>
+                            <div class="timeline-content">双方激战，中国军队顽强抵抗</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7月17日</div>
+                            <div class="timeline-content">蒋介石发表庐山声明，准备全面抗战</div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-significance">
+                        <p>此事件彻底打破了中日之间短暂的"和平"局面，促使蒋介石发表《告全体将士书》，宣告"地无分南北，年无分老幼，无论何人，皆有守土抗战之责任"，标志着中国全面性抗战的爆发。</p>
+                    </div>
+                    
+                    <p>七七事变是日本帝国主义全面侵华的开始，也是中国全民族抗战的起点，揭开了中华民族抗日战争的序幕。</p>
+                `
+            },
+            songhu: {
+                title: "淞沪会战",
+                date: "1937年8月13日至11月26日",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1Dj411u7iC&high_quality=1&danmaku=0" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                poster: "image/淞沪.png",
+                content: `
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <!-- 视频内容将通过JavaScript动态插入 -->
+                        </div>
+                    </div>
+                    
+                    <p>1937年8月13日，日军借"虹桥机场事件"进攻上海，中国军队在蒋介石指挥下投入七十余万兵力奋起反击。</p>
+                    
+                    <p>战役历时三个月，中国军队在无险可守的平原地区血肉相搏，姚子青营全营殉国、八百壮士守四行等事迹震撼全国。</p>
+                    
+                    <div class="key-facts">
+                        <h3>关键事实</h3>
+                        <ul>
+                            <li>时间：1937年8月13日至11月26日</li>
+                            <li>地点：上海及周边地区</li>
+                            <li>中国军队：约70万人</li>
+                            <li>日军：约30万人</li>
+                            <li>中国伤亡：约33万人</li>
+                            <li>日军伤亡：约9万人</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-section">
+                        <h3>主要战役</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-date">8月13日</div>
+                            <div class="timeline-content">淞沪会战爆发，中国军队进攻日军据点</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">8月23日</div>
+                            <div class="timeline-content">日军在宝山、川沙登陆，中国军队顽强抵抗</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">10月26日</div>
+                            <div class="timeline-content">四行仓库保卫战，八百壮士坚守阵地</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">11月5日</div>
+                            <div class="timeline-content">日军在杭州湾登陆，中国军队腹背受敌</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">11月12日</div>
+                            <div class="timeline-content">上海沦陷，中国军队撤退</div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-significance">
+                        <p>虽最终被迫撤退，但此战扭转了日军进攻方向，为战略物资西迁赢得时间，奠定了持久抗战的基石。这是抗战中规模最大、战斗最惨烈的战略性战役，粉碎了日本"三个月亡华"的妄想。</p>
+                    </div>
+                    
+                    <p>淞沪会战展现了中国军民的顽强抵抗精神，在抗日战争史上具有重要意义。</p>
+                `
+            },
+            nanjing: {
+                title: "南京大屠杀",
+                date: "1937年12月",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1RL411L7fa&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                poster: "image/南京dts.png",
+                content: `
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <!-- 视频内容将通过JavaScript动态插入 -->
+                        </div>
+                    </div>
+                    
+                    <p>1937年12月13日，日军攻陷中华民国首都南京。</p>
+                    
+                    <p>在随后的六个星期里，日军在南京及附近地区进行了有组织、有计划、有预谋的大规模屠杀、强奸、纵火和抢劫。</p>
+                    
+                    <div class="key-facts">
+                        <h3>关键事实</h3>
+                        <ul>
+                            <li>时间：1937年12月13日至1938年1月</li>
+                            <li>地点：南京市及周边地区</li>
+                            <li>遇难人数：超过30万</li>
+                            <li>持续时间：约6周</li>
+                            <li>主要暴行：集体屠杀、强奸、纵火、抢劫</li>
+                            <li>国际见证：西方记者、外交官记录</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-section">
+                        <h3>事件经过</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-date">12月13日</div>
+                            <div class="timeline-content">日军攻入南京城，开始大规模屠杀</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">12月中旬</div>
+                            <div class="timeline-content">安全区内的暴行，国际人士尽力保护平民</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">12月下旬</div>
+                            <div class="timeline-content">集体屠杀达到高潮，长江边大规模处决</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">1938年1月</div>
+                            <div class="timeline-content">屠杀逐渐减少，但零星暴行持续</div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-significance">
+                        <p>遇难同胞总数超过30万，无数家庭支离破碎，城市建筑大半被毁。这一暴行震惊了世界，成为中华民族历史上最深重的伤痕之一，也时刻警醒着世人战争的残酷与和平的珍贵。</p>
+                    </div>
+                    
+                    <p>南京大屠杀是抗日战争时期最惨绝人寰的事件之一，揭露了日本军国主义的极端残暴，是人类历史上黑暗的一页。</p>
+                `
+            },
+            taierzhuang: {
+                title: "台儿庄大捷",
+                date: "1938年3月至4月",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1TNXTYMEKP&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                poster: "image/台儿庄.png",
+                content: `
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <!-- 视频内容将通过JavaScript动态插入 -->
+                        </div>
+                    </div>
+                    
+                    <p>1938年春，日军精锐部队板垣师团和矶谷师团企图会师徐州，打通津浦铁路。</p>
+                    
+                    <p>中国军队在第五战区司令长官李宗仁的指挥下，于山东峄县的台儿庄地区与日军展开激战。</p>
+                    
+                    <div class="key-facts">
+                        <h3>关键事实</h3>
+                        <ul>
+                            <li>时间：1938年3月23日至4月7日</li>
+                            <li>地点：山东峄县台儿庄地区</li>
+                            <li>中国指挥官：李宗仁</li>
+                            <li>参战部队：第二集团军、第二十军团等</li>
+                            <li>日军伤亡：约1.2万人</li>
+                            <li>中国伤亡：约2万人</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-section">
+                        <h3>战役经过</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-date">3月23日</div>
+                            <div class="timeline-content">日军进攻台儿庄，中国军队顽强防守</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">3月27日</div>
+                            <div class="timeline-content">日军攻入台儿庄城内，展开巷战</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">4月3日</div>
+                            <div class="timeline-content">中国军队发起反攻，包围日军</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">4月7日</div>
+                            <div class="timeline-content">日军溃败，台儿庄战役胜利结束</div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-significance">
+                        <p>战役中，中国军队利用灵活战术，顽强抵抗，最终重创日军，歼敌万余人。这是抗战以来正面战场首次在战役规模上击败日军，打破了日军"不可战胜"的神话，极大地鼓舞了全国军民的抗战士气。</p>
+                    </div>
+                    
+                    <p>台儿庄大捷的胜利，打击了日本侵略者的嚣张气焰，坚定了全国军民坚持抗战的信心。</p>
+                `
+            },
+            baituan: {
+                title: "百团大战",
+                date: "1940年8月至12月",
+                video: "embed",
+                embedCode: `<iframe src="//player.bilibili.com/player.html?bvid=BV1g14y1t7oi&high_quality=1&danmaku=0&autoplay=false" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            width="100%" 
+                            height="100%">
+                            </iframe>`,
+                poster: "image/百团.png",
+                content: `
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <!-- 视频内容将通过JavaScript动态插入 -->
+                        </div>
+                    </div>
+                    
+                    <p>为了粉碎日军的"囚笼政策"，打击其嚣张气焰，并振奋全国的抗战信心，八路军在彭德怀的指挥下，出动105个团，在华北广大地区对日军控制的交通线和据点发动了突然袭击。</p>
+                    
+                    <p>战役历时三个半月，进行了大小战斗1800多次，攻克了大量据点，破坏了重要的铁路和公路，沉重打击了日伪军。</p>
+                    
+                    <div class="key-facts">
+                        <h3>关键事实</h3>
+                        <ul>
+                            <li>时间：1940年8月20日至12月5日</li>
+                            <li>地点：华北地区（山西、河北、察哈尔等）</li>
+                            <li>八路军兵力：105个团，约40万人</li>
+                            <li>指挥官：彭德怀、左权等</li>
+                            <li>战斗次数：1800余次</li>
+                            <li>歼敌人数：日伪军约4.6万人</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-section">
+                        <h3>战役阶段</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-date">第一阶段</div>
+                            <div class="timeline-content">8月20日至9月10日，破袭交通线</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">第二阶段</div>
+                            <div class="timeline-content">9月22日至10月上旬，攻击日军据点</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">第三阶段</div>
+                            <div class="timeline-content">10月上旬至12月5日，反"扫荡"作战</div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-significance">
+                        <p>此战有力地支援了正面战场，显示了敌后战场的巨大力量和作用。这是中国共产党领导的八路军在华北敌后发动的一次大规模战略性进攻战役。</p>
+                    </div>
+                    
+                    <p>百团大战展现了中国共产党领导的抗日武装力量的强大战斗力，极大地鼓舞了全国人民的抗战信心。</p>
+                `
+            }
+        };
+
+        // 从URL获取事件ID并显示相应内容
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const eventId = params.get('id');
+            
+            // 获取事件数据，默认为七七事变
+            const event = eventData[eventId] || eventData.qiqi;
+            
+            // 更新页面内容
+            document.getElementById('event-title').textContent = event.title;
+            document.getElementById('event-date').textContent = event.date;
+            document.getElementById('event-content').innerHTML = event.content;
+            
+            // 根据视频类型渲染内容
+            const videoWrapper = document.querySelector('.video-wrapper');
+            if (event.video === "embed") {
+                // 使用嵌入代码
+                videoWrapper.innerHTML = event.embedCode;
+            } else {
+                // 使用原有的video标签逻辑（保留兼容性）
+                videoWrapper.innerHTML = `
+                    <video id="event-video" 
+                           poster="${event.poster}" 
+                           preload="metadata"
+                           controls>
+                        <source src="${event.video}" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                `;
+            }
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'linear-gradient(135deg, #8b0000 0%, #c41e3a 100%)';
+            } else {
+                navbar.style.background = 'linear-gradient(135deg, #c41e3a 0%, #8b0000 100%)';
+            }
+        });
+    </script>
+</body>
+</html>
